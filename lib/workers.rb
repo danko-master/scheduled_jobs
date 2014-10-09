@@ -1,0 +1,1 @@
+require_relative 'workers/redis_workers'
