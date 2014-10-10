@@ -49,15 +49,6 @@ module RedisWorkers
         $redis.set("svp:tariff_setting", last_tariff_settings.last.code)
       end
 
-     
-      # p "From redis"
-      # p $redis.get("svp:company:1")
-      # p $redis.get("svp:company:2")
-
-      p $redis.get("svp:tariff_setting")
-      # p $redis.get("svp:truck:2")
-      p $redis.get("svp:on_board_device:10001")
-      p eval $redis.get("svp:on_board_device:10001")
 
       $redis.set("svp:last_time_checked", new_last_time_checked)
       @current_logger.info "NOTIFICATIONS: Stopped"
