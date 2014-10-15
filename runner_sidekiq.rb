@@ -33,7 +33,7 @@ if ENV['APP_ENV']
   $redis = Redis.new
   
   # test
-  RedisWorkers::Jobs.perform_async
+  # RedisWorkers::Jobs.perform_async
 else
   puts 'Error: not found "APP_ENV"!'
 end
