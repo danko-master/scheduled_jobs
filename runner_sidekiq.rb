@@ -3,8 +3,8 @@
 
 ## Достаточно запуска только sidekiq
 # Run: export APP_ENV=development && bundle exec sidekiq -C ./config/sidekiq.yml -r ./runner_sidekiq.rb
-# Run: export APP_ENV=production && bundle exec sidekiq -d -C ./config/sidekiq.yml -r ./runner_sidekiq.rb
-
+# Run: export APP_ENV=production && bundle exec sidekiq -C ./config/sidekiq.yml -r ./runner_sidekiq.rb
+# Run: export APP_ENV=production && bundle exec sidekiq -d -C ./config/sidekiq.yml -r ./runner_sidekiq.rb --logfile log/scheduled_sidekiq_jobs_production.log
 
 
 if ENV['APP_ENV']
@@ -30,10 +30,10 @@ if ENV['APP_ENV']
         :host     => $config['database']['host'])
   
   require 'redis'
-  $redis = Redis.new
+  $redis = Redis.new(host: $config['redis_cache']['host'], port: $config['redis_cache']['port'])
   
   # test
-  # RedisWorkers::Jobs.perform_async
+  RedisWorkers::Jobs.perform_async
 else
   puts 'Error: not found "APP_ENV"!'
 end

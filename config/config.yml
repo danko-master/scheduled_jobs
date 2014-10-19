@@ -20,7 +20,9 @@ development:
     username: test_usr_dev1
     password: test_usr_dev1
 
-  
+  redis_cache:
+    host: localhost
+    port: 6379
 
 test:
   <<: *default
@@ -40,3 +42,7 @@ production:
     database: svpdb
     username: svp
     password: qir29sir
+
+  redis_cache:
+    host: 172.17.10.27
+    port: 6379

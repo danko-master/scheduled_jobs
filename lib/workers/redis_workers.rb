@@ -20,33 +20,58 @@ module RedisWorkers
       new_last_time_checked = Time.now
       if $redis.get("svp:last_time_checked").blank?
         $redis.set("svp:last_time_checked", new_last_time_checked)
-      end      
-      last_time_checked = Time.parse($redis.get("svp:last_time_checked"))  
 
+        last_obd = Db::OnBoardDevice.all
+        if last_obd.present?
+          move_to_redis(last_obd)
+        end
 
-      last_obd = Db::OnBoardDevice.where("updated_at > ?", last_time_checked)
-      if last_obd.present?
-        move_to_redis(last_obd)
-      end
+        last_trucks = Db::Truck.all
+        if last_trucks.present?
+          move_to_redis(last_trucks)
+        end
 
-      last_trucks = Db::Truck.where("updated_at > ?", last_time_checked)
-      if last_trucks.present?
-        move_to_redis(last_trucks)
-      end
+        last_companies = Db::UserCard.all
+        if last_companies.present?
+          move_to_redis(last_companies)
+        end
 
-      last_companies = Db::Company.where("updated_at > ?", last_time_checked)
-      if last_companies.present?
-        move_to_redis(last_companies)
-      end
+        last_tariff = Db::Tariff.all
+        if last_tariff.present?
+          move_to_redis(last_tariff)
+        end
 
-      last_tariff = Db::Tariff.where("updated_at > ?", last_time_checked)
-      if last_tariff.present?
-        move_to_redis(last_tariff)
-      end
+        last_tariff_settings = Db::TariffSetting.all
+        if last_tariff_settings.present?
+          $redis.set("svp:tariff_setting", last_tariff_settings.last.code)
+        end      
+      else
+        last_time_checked = Time.parse($redis.get("svp:last_time_checked")) 
 
-      last_tariff_settings = Db::TariffSetting.where("updated_at > ?", last_time_checked)
-      if last_tariff_settings.present?
-        $redis.set("svp:tariff_setting", last_tariff_settings.last.code)
+        last_obd = Db::OnBoardDevice.where("updated_at > ?", last_time_checked)
+        if last_obd.present?
+          move_to_redis(last_obd)
+        end
+
+        last_trucks = Db::Truck.where("updated_at > ?", last_time_checked)
+        if last_trucks.present?
+          move_to_redis(last_trucks)
+        end
+
+        last_companies = Db::UserCard.where("updated_at > ?", last_time_checked)
+        if last_companies.present?
+          move_to_redis(last_companies)
+        end
+
+        last_tariff = Db::Tariff.where("updated_at > ?", last_time_checked)
+        if last_tariff.present?
+          move_to_redis(last_tariff)
+        end
+
+        last_tariff_settings = Db::TariffSetting.where("updated_at > ?", last_time_checked)
+        if last_tariff_settings.present?
+          $redis.set("svp:tariff_setting", last_tariff_settings.last.code)
+        end
       end
 
 
