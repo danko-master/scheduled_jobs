@@ -33,7 +33,9 @@ if ENV['APP_ENV']
   $redis = Redis.new(host: $config['redis_cache']['host'], port: $config['redis_cache']['port'])
   
   # test
-  RedisWorkers::Jobs.perform_async
+  # RedisWorkers::Jobs.perform_async
+  # разовая задача на внесение информации
+  SingleRedisWorkers::Jobs.perform_async
 else
   puts 'Error: not found "APP_ENV"!'
 end

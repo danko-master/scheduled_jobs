@@ -1,7 +1,7 @@
 require 'active_record'
 
 module Db
-  class UserCard < ActiveRecord::Base
+  class CompanyAccount < ActiveRecord::Base
   end
 
   class User < ActiveRecord::Base
