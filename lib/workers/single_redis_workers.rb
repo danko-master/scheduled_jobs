@@ -1,7 +1,7 @@
 module SingleRedisWorkers
   class Jobs
     include Sidekiq::Worker
-    sidekiq_options queue: :single_scheduled_jobs
+    sidekiq_options queue: :scheduled_jobs
 
     def perform
       p "Clock worked"
