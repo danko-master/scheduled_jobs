@@ -59,16 +59,22 @@ module RedisCorrectionWorkers
     end
 
     def correct_redis(operation_type, class_name, item)
+      if class_name == "on_board_device"
+        item_id = item['number']
+      else
+        item_id = item['id']
+      end
+
       case operation_type
       when 'update'
-        $redis.set("#{$config['redis_cache']['prefix']}:#{class_name}:#{item[:id]}", item)
-        @current_logger.info "Redis updated: #{$config['redis_cache']['prefix']}:#{class_name}:#{item[:id]} set #{item}"
+        $redis.set("#{$config['redis_cache']['prefix']}:#{class_name}:#{item_id}", item)
+        @current_logger.info "Redis updated: #{$config['redis_cache']['prefix']}:#{class_name}:#{item_id} set #{item}"
       when 'insert'
-        $redis.set("#{$config['redis_cache']['prefix']}:#{class_name}:#{item[:id]}", item)
-        @current_logger.info "Redis inserted: #{$config['redis_cache']['prefix']}:#{class_name}:#{item[:id]} set #{item}"
+        $redis.set("#{$config['redis_cache']['prefix']}:#{class_name}:#{item_id}", item)
+        @current_logger.info "Redis inserted: #{$config['redis_cache']['prefix']}:#{class_name}:#{item_id} set #{item}"
       when 'delete'
-        $redis.set("#{$config['redis_cache']['prefix']}:#{class_name}:#{item[:id]}", nil)
-        @current_logger.info "Redis deleted: #{$config['redis_cache']['prefix']}:#{class_name}:#{item[:id]} set null"
+        $redis.set("#{$config['redis_cache']['prefix']}:#{class_name}:#{item_id}", nil)
+        @current_logger.info "Redis deleted: #{$config['redis_cache']['prefix']}:#{class_name}:#{item_id} set null"
       end        
     end
   end
