@@ -14,8 +14,11 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
+    amq-protocol (1.9.2)
     arel (5.0.1.20140414130214)
     builder (3.2.2)
+    bunny (1.4.1)
+      amq-protocol (>= 1.9.2)
     celluloid (0.15.2)
       timers (~> 1.1.0)
     clockwork (1.0.0)
@@ -52,6 +55,7 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord (~> 4.1.6)
+  bunny (~> 1.4.1)
   clockwork (~> 1.0.0)
   pg (~> 0.17.1)
   pry (~> 0.10.1)

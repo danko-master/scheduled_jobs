@@ -7,4 +7,6 @@ gem 'redis', '~> 3.1.0'
 gem 'sidekiq', '~> 3.2.5'
 gem 'clockwork', '~> 1.0.0'
 
+gem 'bunny', '~> 1.4.1'
+
 gem 'pry', '~> 0.10.1', group: :development
