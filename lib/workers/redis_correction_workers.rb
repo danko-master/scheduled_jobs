@@ -79,7 +79,6 @@ module RedisCorrectionWorkers
         @logger = Logger.new(log_path)
         @remote_syslog = UDPSocket.new
         @remote_syslog.connect($config['remote_syslog']['host'], $config['remote_syslog']['port'])
-        @is_debit = is_debit
       rescue Exception => e
         puts "LOGGER ERROR! #{e}"
       end
