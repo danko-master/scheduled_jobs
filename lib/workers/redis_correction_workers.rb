@@ -88,7 +88,7 @@ module RedisCorrectionWorkers
     def info(msg)
       begin
         @logger.info p msg 
-        # @remote_syslog.send("redis_correction_worker: #{msg}", 0)
+        @remote_syslog.send("redis_correction_worker: #{msg}", 0)
       rescue Exception => e
         puts "LOGGER ERROR! #{e}"
       end
