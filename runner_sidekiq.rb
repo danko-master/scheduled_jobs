@@ -3,6 +3,7 @@
 
 ## Достаточно запуска только sidekiq
 # Run: export APP_ENV=development && bundle exec sidekiq -C ./config/sidekiq.yml -r ./runner_sidekiq.rb
+# Run: export APP_ENV=test && bundle exec sidekiq -C ./config/sidekiq.yml -r ./runner_sidekiq.rb
 # Run: export APP_ENV=production && bundle exec sidekiq -C ./config/sidekiq.yml -r ./runner_sidekiq.rb
 # Run: export APP_ENV=production && bundle exec sidekiq -d -C ./config/sidekiq.yml -r ./runner_sidekiq.rb --logfile log/scheduled_sidekiq_jobs_production.log
 

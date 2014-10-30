@@ -40,10 +40,35 @@ development:
     port: 514
 
 test:
-  <<: *default
+  runner:
+    instances: 1
+    input_queue: "svp_test"
+    input_correction_queue: "svp_redis_correction_test"
+    output_queue: "svp_billing_test"
 
   database:
     <<: *default_database
+
+    host: 172.17.10.34
+    port: 5432
+    database: svpdb_test
+    username: svp
+    password: qir29sir
+
+  rabbit:
+    <<: *default_rabbit
+    host: '172.17.10.34'  
+    user: 'svp_app'
+    password: 'svp_app'
+
+  redis_cache:
+    host: 172.17.10.34
+    port: 6379
+    prefix: svp_cache
+
+  remote_syslog:
+    host: '172.17.10.41'
+    port: 514
 
 
 production:
