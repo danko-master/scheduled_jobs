@@ -8,13 +8,14 @@ module RedisCorrectionWorkers
     sidekiq_options queue: :redis_correction
 
     def perform
-      @current_logger = CustomLogger.new("#{File.dirname(__FILE__)}/../../log/sidekiq_redis_correction_#{ENV['APP_ENV']}.log")
+      @current_logger = CustomLogger.new
       @current_logger.info "NOTIFICATIONS: Started"
 
       @bunny = Bunny.new(host: $config['rabbit']['host'], 
         port: $config['rabbit']['port'], 
         user: $config['rabbit']['user'], 
-        password: $config['rabbit']['password'])
+        password: $config['rabbit']['password'],
+        vhost: $config['rabbit']['vhost'])
 
       begin
         @current_logger.info " [*] RUBY Waiting for messages. To exit press CTRL+C"
@@ -80,7 +81,7 @@ module RedisCorrectionWorkers
   end
 
   class CustomLogger
-    def initialize(log_path)
+    def initialize(log_path=STDOUT)
       begin
         @logger = Logger.new(log_path)
         @remote_syslog = UDPSocket.new

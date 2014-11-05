@@ -92,7 +92,7 @@ production:
     vhost: 'billing'
 
   redis_cache:
-    host: '10.0.1.132'
+    host: '10.0.1.200'
     port: 6379
     db: 4
     prefix: svp_cache
