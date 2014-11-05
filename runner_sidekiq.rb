@@ -15,7 +15,7 @@ if ENV['APP_ENV']
   $config = Configuration.load_config
 
   require 'logger'
-  current_logger = Logger.new("#{File.dirname(__FILE__)}/log/scheduled_sidekiq_jobs_#{ENV['APP_ENV']}.log")
+  current_logger = Logger.new(STDOUT)
   current_logger.info "Started"
   
 
