@@ -77,7 +77,8 @@ production:
   database:
     <<: *default_database
 
-    host: 172.17.10.24
+    # host: 172.17.10.24
+    host: '10.0.1.132'
     port: 5432
     database: svpdb
     username: svp
@@ -85,15 +86,18 @@ production:
 
   rabbit:
     <<: *default_rabbit
-    host: '172.17.10.26'  
-    user: 'svp_app'
-    password: 'svp_app'
+    host: '10.0.1.200' 
+    user: 'billing'
+    password: 'fe5jaepein7poqu7iegheeNgeTahb8ae'
+    vhost: 'billing'
 
   redis_cache:
-    host: 172.17.10.27
+    host: '10.0.1.132'
     port: 6379
+    db: 4
     prefix: svp_cache
 
   remote_syslog:
-    host: '172.17.10.41'
+    host: '10.0.1.200'
     port: 514
+    disable: 1

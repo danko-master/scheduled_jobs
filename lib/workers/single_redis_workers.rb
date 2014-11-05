@@ -6,7 +6,8 @@ module SingleRedisWorkers
     def perform
       p "Single task worked"
 
-      @current_logger = Logger.new("#{File.dirname(__FILE__)}/../../log/single_sidekiq_worker_#{ENV['APP_ENV']}.log")
+      # @current_logger = Logger.new("#{File.dirname(__FILE__)}/../../log/single_sidekiq_worker_#{ENV['APP_ENV']}.log")
+      @current_logger = Logger.new(STDOUT)
       @current_logger.info "NOTIFICATIONS: Started"      
            
 
