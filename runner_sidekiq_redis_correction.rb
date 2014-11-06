@@ -22,7 +22,7 @@ if ENV['APP_ENV']
   require_relative 'lib/db'
   
   require 'redis'
-  $redis = Redis.new(host: $config['redis_cache']['host'], port: $config['redis_cache']['port'])
+  $redis = Redis.new(host: $config['redis_cache']['host'], port: $config['redis_cache']['port'], db: $config['redis_cache']['db'])
   
   # Обновление редиса при обновлении грузовиков и устройств
   RedisCorrectionWorkers::Jobs.perform_async

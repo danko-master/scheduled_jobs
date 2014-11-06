@@ -31,7 +31,7 @@ if ENV['APP_ENV']
         :host     => $config['database']['host'])
   
   require 'redis'
-  $redis = Redis.new(host: $config['redis_cache']['host'], port: $config['redis_cache']['port'])
+  $redis = Redis.new(host: $config['redis_cache']['host'], port: $config['redis_cache']['port'], db: $config['redis_cache']['db'])
   
   # test
   # RedisWorkers::Jobs.perform_async
