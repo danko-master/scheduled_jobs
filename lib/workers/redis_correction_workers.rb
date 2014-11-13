@@ -62,6 +62,8 @@ module RedisCorrectionWorkers
     def correct_redis(operation_type, class_name, item)
       if class_name == "on_board_device"
         item_id = item['number']
+      if class_name == "tariff_setting"
+        item_id = 'first'
       else
         item_id = item['id']
       end
