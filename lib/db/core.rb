@@ -4,6 +4,9 @@ module Db
   class CompanyAccount < ActiveRecord::Base
   end
 
+  class Company < ActiveRecord::Base
+  end
+
   class UserCard < ActiveRecord::Base
   end
 

@@ -26,6 +26,11 @@ module SingleRedisWorkers
         move_to_redis(last_obd)
       end
 
+      p last_company = Db::Company.all
+      if last_company.present?
+        move_to_redis(last_company)
+      end
+
 
       @current_logger.info "NOTIFICATIONS: Stopped"
     end
