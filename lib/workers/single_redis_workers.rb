@@ -40,7 +40,7 @@ module SingleRedisWorkers
         p obj_redis_name = obj.class.name.gsub("Db::", "").underscore.to_s
         # on_board_device хранятся по imei - это number в db
         if obj_redis_name == "on_board_device"
-          p obj_id = obj.number
+          p obj_id = obj.imei
         else
           p obj_id = obj.id
         end
