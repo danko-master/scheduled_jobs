@@ -21,6 +21,7 @@ module RedisCorrectionWorkers
         @current_logger.info " [*] RUBY Waiting for messages. To exit press CTRL+C"
         @bunny.start
         @ch   = @bunny.create_channel
+        @ch.basic_qos(1)
 
         run
       rescue Interrupt => _
