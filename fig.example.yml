@@ -1,0 +1,13 @@
+sheduled:
+  build: . 
+  environment:
+    APP_ENV: 'production'
+    SVP_DB_HOST: localhost # '10.0.1.132'
+    SVP_DB_USER: '' # svp
+    SVP_DB_PASSWORD: '' # qir29sir
+    SVP_RABBIT_HOST: '10.0.5.10'
+    SVP_RABBIT_USER: 'svp'
+    SVP_RABBIT_PASSWORD: '123456'
+    SVP_RABBIT_VHOST: '' # 'dzhirnov'
+    SVP_REDIS_HOST: 'localhost'
+    SVP_REDIS_PREFIX: 'svp_cache'

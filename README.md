@@ -31,5 +31,16 @@
     sudo mv fig /usr/local/bin
     ```
 
+3. Собрать и настроить контейнеры:
+    Создать файл fig.yml по образцу файла fig.example.yml
+
+    ```
+    fig build
+    ```
+
+    ```
+    fig up
+    ```
+
 
 

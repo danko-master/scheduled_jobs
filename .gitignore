@@ -17,3 +17,5 @@ log/*.log
 
 /config/database.yml
 .ruby-version
+
+fig.yml

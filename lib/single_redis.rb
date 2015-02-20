@@ -1,9 +1,6 @@
-module SingleRedisWorkers
-  class Jobs
-    include Sidekiq::Worker
-    sidekiq_options queue: :scheduled_jobs
-
-    def perform
+module SingleRedis
+  class Custom
+    def self.perform
       p "Single task worked"
 
       # @current_logger = Logger.new("#{File.dirname(__FILE__)}/../../log/single_sidekiq_worker_#{ENV['APP_ENV']}.log")
@@ -35,7 +32,7 @@ module SingleRedisWorkers
       @current_logger.info "NOTIFICATIONS: Stopped"
     end
 
-    def move_to_redis(last_records)
+    def self.move_to_redis(last_records)
       last_records.each do |obj|
         p obj_redis_name = obj.class.name.gsub("Db::", "").underscore.to_s
         # on_board_device хранятся по imei - это number в db
