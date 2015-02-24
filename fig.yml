@@ -1,11 +1,13 @@
 # export APP_ENV='development'; export SVP_DB_HOST='localhost'; export SVP_DB_USER='test_usr_dev1'; export SVP_DB_PASSWORD='test_usr_dev1'; export SVP_RABBIT_HOST='10.0.5.10'; export SVP_RABBIT_USER='svp'; export SVP_RABBIT_PASSWORD='123456'; export SVP_RABBIT_VHOST='dzhirnov'; export SVP_REDIS_HOST='localhost';  export SVP_REDIS_PREFIX='svp_cache';
 sheduled:
   build: . 
+  ports:
+    - "6379:6379"
   environment:
     APP_ENV: 'production'
-    SVP_DB_HOST: localhost # '10.0.1.132'
-    SVP_DB_USER: test_usr_dev1 # svp
-    SVP_DB_PASSWORD: test_usr_dev1 # qir29sir
+    SVP_DB_HOST: '10.0.1.132' # localhost
+    SVP_DB_USER:  svp # test_usr_dev1
+    SVP_DB_PASSWORD: qir29sir # test_usr_dev1
     SVP_RABBIT_HOST: '10.0.5.10'
     SVP_RABBIT_USER: 'svp'
     SVP_RABBIT_PASSWORD: '123456'

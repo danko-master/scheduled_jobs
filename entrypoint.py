@@ -9,7 +9,7 @@ import re
 import signal
 
 ENV = dict(os.environ)
-# ENV['RABBITMQ_LOG_BASE'] = '/data/log'
+ENV['APP_ENV'] = 'production'
 # ENV['RABBITMQ_MNESIA_BASE'] = '/data/mnesia'
 # ENV['HOME'] = '/data'
 # ENV['LANG'] = 'en_US.UTF-8'
@@ -92,15 +92,12 @@ def main(command, *args):
     #         args.append(host.pop())
     #         run('/usr/sbin/rabbitmqctl', args, user=USER, env=ENV).wait()
 
-    print ("Running server")
-    run('/usr/bin/redis-server', args)
-    print ("Running server 2")
-    os.chdir('/home/apps/scheduled_jobs')
-    print ("Running server 3")
-    run('/usr/bin/ruby run_sungle_redis.rb', args)
-    print ("Running server 4")
-    run('bundle exec sidekiq', ('-C', './config/sidekiq.yml', '-r', './runner_sidekiq_redis_correction.rb'), fork=True)
-    # return run('/usr/sbin/rabbitmq-server', args, fork=True, env=ENV, user=USER)
+    print ("Running redis server")
+    run('/usr/bin/redis-server', ('/home/apps/scheduled_jobs/config/redis.conf'))
+    print ("Running ruby run_sungle_redis.rb")
+    run('/usr/bin/bundle', ('exec', 'ruby', '/home/apps/scheduled_jobs/run_sungle_redis.rb'), chdir='/home/apps/scheduled_jobs', env=ENV).wait()
+    print ("Running runner_sidekiq_redis_correction.rb")
+    run('/usr/bin/bundle', ('exec', 'sidekiq', '-C', './config/sidekiq.yml', '-r', './runner_sidekiq_redis_correction.rb', '--logfile', 'log/runner_sidekiq_redis_correction.log'), chdir='/home/apps/scheduled_jobs', env=ENV, fork=True)
 
 
 if __name__ == "__main__":

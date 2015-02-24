@@ -5,31 +5,31 @@ module SingleRedis
 
       # @current_logger = Logger.new("#{File.dirname(__FILE__)}/../../log/single_sidekiq_worker_#{ENV['APP_ENV']}.log")
       @current_logger = Logger.new(STDOUT)
-      @current_logger.info "NOTIFICATIONS: Started"      
+      @current_logger.info "NOTIFICATIONS: Started SingleRedis"      
            
 
-      p last_obd = Db::OnBoardDevice.all
+      last_obd = Db::OnBoardDevice.all
       if last_obd.present?
         move_to_redis(last_obd)
       end
 
-      p last_trucks = Db::Truck.all
+      last_trucks = Db::Truck.all
       if last_trucks.present?
         move_to_redis(last_trucks)
       end
 
-      p last_obd = Db::CompanyAccount.all
+      last_obd = Db::CompanyAccount.all
       if last_obd.present?
         move_to_redis(last_obd)
       end
 
-      p last_company = Db::Company.all
+      last_company = Db::Company.all
       if last_company.present?
         move_to_redis(last_company)
       end
 
 
-      @current_logger.info "NOTIFICATIONS: Stopped"
+      @current_logger.info "NOTIFICATIONS: Stopped SingleRedis"
     end
 
     def self.move_to_redis(last_records)
@@ -43,7 +43,7 @@ module SingleRedis
         end
         h = Hash.new
         # убираем косяк с обратной конвертацией времени
-        p obj.attributes.each {|key, value| h[key] = value.to_s }
+        obj.attributes.each {|key, value| h[key] = value.to_s }
         $redis.set("#{$config['redis_cache']['prefix']}:#{obj_redis_name}:#{obj_id}", h)
       end
     end
